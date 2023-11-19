@@ -42,7 +42,7 @@ class UserController extends Controller
        
         $request->validate([
             'name' => 'required|min:3|max:40',
-            'email' => 'required|email|max:40',
+            'email' => 'required|email|max:40|unique:users,email',
             'password' => 'required|min:6|max:40',
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:720',
             'facebook' => 'nullable|url',
@@ -56,6 +56,7 @@ class UserController extends Controller
             'email.required' => 'Email é obrigatório.',
             'email.email' => 'Email inválido.',
             'email.max' => 'Limite de 40 caracteres atingido!.',
+            'email.unique' => 'Este e-mail já está em uso. Por favor, escolha outro.',
             'password.required' => 'Senha obrigatória.',
             'password.min' => 'Senha com minima de 6 caracteres',
             'password.max' => 'Senha maxima de 40 caracteres.',
@@ -64,8 +65,8 @@ class UserController extends Controller
             'profile_picture.mimes' => 'O arquivo precisa ser JPEG, PNG, JPG.',
             'profile_picture.max' => 'O arquivo precisa ter no maximo 720p.',
             'facebook.url' => 'Url inválida!',
-            'facebook.twitter' => 'Url inválida!',
-            'facebook.linkedin' => 'Url inválida!',
+            'twitter.url' => 'Url inválida!',
+            'linkedin.url' => 'Url inválida!',
         ]);
         
         
@@ -74,7 +75,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);  
-        // $user->profile_picture = $request->profile_picture;
         $user->facebook = null;
         $user->twitter = null;
         $user->linkedin = null;
@@ -167,16 +167,15 @@ class UserController extends Controller
             'profile_picture.mimes' => 'O arquivo precisa ser JPEG, PNG, JPG.',
             'profile_picture.max' => 'O arquivo precisa ter no maximo 720p.',
             'facebook.url' => 'Url inválida!',
-            'facebook.twitter' => 'Url inválida!',
-            'facebook.linkedin' => 'Url inválida!',
+            'twitter.url' => 'Url inválida!',
+            'linkedin.url' => 'Url inválida!',
         ]);
 
         
         $user = User::find($id);
 
         $user->name = $request->name;
-        $user->email = $request->email;
-
+        
         if($request->password == null)
         {
             $user->password = $user->password;
@@ -223,9 +222,23 @@ class UserController extends Controller
         $user->linkedin = $request->linkedin;
         $user->about = $request->about;
         
-        $user->update();
+        if($request->email != $user->email)
+            {
+                $request->validate([
+                    'email' => 'required|email|unique:users,email|max:40',
+                ],[ 
+                    'email.unique' => 'Este e-mail já está em uso. Por favor, escolha outro.',
+                    'email.max' => 'Limite máximo de 40 caracteres atingido.',
+                ]);
+                
+                return redirect('user/edit/{id}')->with('danger', 'Falha ao salvar, email já em uso!');
+            }
+            else
+            {
+                $user->update();
+                return redirect('user/edit/{id}')->with('success', 'Dados alterados com sucesso!');
+            }
 
-        return redirect('user/edit/{id}')->with('success', 'Dados alterados com sucesso!');
     }
 
     /**
