@@ -46,6 +46,6 @@ class LoginController extends Controller
     {
         auth()->logout();
 
-        return redirect('formlogin');
+        return redirect()->route('index');
     }
 }

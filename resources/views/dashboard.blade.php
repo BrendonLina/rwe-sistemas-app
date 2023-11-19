@@ -8,5 +8,9 @@
 </head>
 <body>
     <h3>Olá seja bem-vindo!</h3>
+    <p>{{Auth::user()->name}}</p>
+    <a href="/user/edit/{id}">Editar informações</a>
+    <a href="/user/profile/{id}">Suas informações</a>
+    <a href="/logout">Sair</a>
 </body>
 </html>

@@ -16,6 +16,13 @@
                 {{session('danger')}}
             </div>
         @endif
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
+            </div>
+        @endif
+
         <input type="email" name="email" placeholder="Email">
         @error('email')
             <span>{{$message}}</span>
@@ -25,6 +32,7 @@
             <span>{{$message}}</span>
         @enderror
         <input type="submit" value="Entrar" class="btn btn-primary" id="btnEnviar">
+        <a href="/cadastrar">Cadastre-se</a>
     </form>
         
 </body>

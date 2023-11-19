@@ -7,13 +7,29 @@
     <title>Cadastrar</title>
 </head>
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="/cadastrar" method="post" enctype="multipart/form-data">
         @csrf
+
         <input type="text" name="name" placeholder="Nome">
+        @error('name')
+            <span>{{ $message }}</span>
+        @enderror
+
         <input type="email" name="email" placeholder="Email">
+        @error('email')
+            <span>{{ $message }}</span>
+        @enderror
+
         <input type="password" name="password" placeholder="Senha">
-        <input type="file" name="image" accept="image/*">
-        <input type="submit" value="Entrar">
+        @error('password')
+            <span>{{ $message }}</span>
+        @enderror
+
+        <input type="file" name="profile_picture" accept="image/*">
+        @error('profile_picture')
+            <span>{{ $message }}</span>
+        @enderror
+        <input type="submit" value="Cadastrar">
     </form>
 </body>
 </html>
