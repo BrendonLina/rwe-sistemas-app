@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6 custom-box">
                 <div class="profile-container">
-                    <a href="/user/edit/{id}" class="altperfil">Editar informações</a>
+                    <a href="{{route ('editUser', Auth::user()->id)}}" class="altperfil">Editar informações</a>
                     <h3>Informações do meu perfil:</h3>
                         <img src="{{ asset('img/profile/' . Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-image">
                         <h4>{{Auth::user()->name}}</h4>
@@ -59,7 +59,7 @@
                         @endif
                         
                         
-                    <a href="/dashboard" class="voltar">voltar</a>
+                    <a href="{{route ('dashboard')}}" class="voltar">voltar</a>
                 </div>
             </div>
         </div>

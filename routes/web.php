@@ -19,15 +19,15 @@ Route::get('/', [LoginController::class, 'formLogin'])->name('index');
 Route::post('/', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/cadastrar', [UserController::class, 'cadastrar']);
+Route::get('/cadastrar', [UserController::class, 'cadastrar'])->name('cadastrar');
 Route::post('/cadastrar', [UserController::class, 'store']);
 
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 
-    Route::put('/user/edit/{id}', [UserController::class, 'update']);
-    Route::get('/user/edit/{id}', [UserController::class, 'edit']);
-    Route::get('/user/profile/{id}', [UserController::class, 'show']);
+    Route::put('/user/edit/{id}', [UserController::class, 'update'])->name('editUser');
+    Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('editUser');
+    Route::get('/user/profile/{id}', [UserController::class, 'show'])->name('profileUser');
 
 });

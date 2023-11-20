@@ -18,15 +18,17 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/profile/{id}"><b>Suas informações</b></a>
+                            <a class="nav-link" href="{{route ('profileUser', Auth::user()->id)}}"><b>Suas informações</b></a>
+                            <!-- <a class="nav-link" href="/user/profile/{{Auth::user()->id}}"><b>Suas informações</b></a> -->
                         </li>
                 
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/edit/{id}">Editar suas informações</a>
+                            <a class="nav-link" href="{{route ('editUser', Auth::user()->id)}}">Editar suas informações</a>
+                            <!-- <a class="nav-link" href="/user/edit/{{Auth::user()->id}}">Editar suas informações</a> -->
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Sair</a>
+                            <a class="nav-link" href="{{route('logout')}}">Sair</a>
                         </li>
                     </ul>
                 </div>

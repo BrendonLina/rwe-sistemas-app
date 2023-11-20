@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <form action="/user/edit/{{Auth::user()->id}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route ('editUser', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 

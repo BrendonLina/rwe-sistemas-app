@@ -118,7 +118,7 @@ class UserController extends Controller
 
         $userInfo = User::find($user)->get();
 
-        return view('userprofile', compact('userInfo'));
+        return view('userProfile', compact('userInfo'));
     }
 
     /**
@@ -136,7 +136,7 @@ class UserController extends Controller
         
         $userInfo = User::find($user)->get();
 
-        return view('useredit', compact('userInfo'));
+        return view('userEdit', compact('userInfo'));
     }
 
     /**
